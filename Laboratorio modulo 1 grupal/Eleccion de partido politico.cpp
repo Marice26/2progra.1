@@ -18,7 +18,7 @@ int main() {
         // Ingreso de datos de los partidos
         for (int i = 0; i < 3; i++) {
             cout << "Ingrese el nombre del partido " << (i + 1) << ": ";
-            getline(cin, partidos[i]);
+            cin >> (partidos[i]);
         }
 
         // Generación de votos aleatorios
@@ -32,32 +32,47 @@ int main() {
 
         // Imprimir la tabla de resultados
         cout << "\nTabla de Resultados:\n";
-        cout << "--------------------------------------------------\n";
-        cout << "Partido | Ronda 1 | Ronda 2 | Ronda 3 | Ronda 4 | Ronda 5 | Total\n";
-        cout << "--------------------------------------------------\n";
+        cout << "----------------------------------------------------------------------\n";
+        cout << "Partido | Ronda 1 | Ronda 2 | Ronda 3 | Ronda 4 | Ronda 5 | Total  |\n";
+        cout << "----------------------------------------------------------------------\n";
         for (int i = 0; i < 3; i++) {
-            cout << left << setw(10) << partidos[i] << " | "; // Ajustar el ancho del nombre del partido
+            cout << left << setw(7) << partidos[i] << " | "; // Ajustar el ancho del nombre del partido
             int total_votos = 0;
             for (int j = 0; j < num_rondas; j++) {
-                cout << right << setw(8) << votos[i][j] << " | "; // Ajustar el ancho de los votos
+                cout << right << setw(7) << votos[i][j] << " | "; // Ajustar el ancho de los votos
                 total_votos += votos[i][j];
             }
-            cout << right << setw(8) << total_votos << endl; // Ajustar el ancho del total de votos
+            cout << right << setw(5) << total_votos << endl; // Ajustar el ancho del total de votos
         }
-        cout << "--------------------------------------------------\n";
+        cout << "---------------------------------------------------------------------\n";
+        // Mostrar totales por ronda
+        cout << "Totales |";
+        for (int j = 0; j < num_rondas; j++) {
+            int suma_ronda = 0;
+            for (int i = 0; i < 3; i++) {
+                suma_ronda += votos[i][j];//suma de votos de las rondas de los votantes
+            }
+            cout << right << setw(7) << suma_ronda << " | ";
+        }
+        cout << endl;
+        cout << "---------------------------------------------------------------------\n";
+
+
 
         // Determinar el ganador y el partido con menos votos
         int ganador = 0;
         int menor_votos = num_votantes * num_rondas; // Inicializar con el máximo posible
         int partido_menor_votos = 0;
+        int total_votos_ganador = 0; // Variable para almacenar el total de votos del ganador
 
         for (int i = 0; i < 3; i++) {
             int total_votos = 0;
             for (int j = 0; j < num_rondas; j++) {
                 total_votos += votos[i][j];
             }
-            if (total_votos > votos[ganador][0]) {
+            if (total_votos > total_votos_ganador) { // Comparar con el total de votos del ganador
                 ganador = i;
+                total_votos_ganador = total_votos; // Actualizar el total de votos del ganador
             }
             if (total_votos < menor_votos) {
                 menor_votos = total_votos;
@@ -66,10 +81,10 @@ int main() {
         }
 
         // Imprimir los resultados finales
-        cout << "\nResultados Finales:\n";
-        cout << "-----------------------------------------\n";
-        cout << "Partido ganador: " << partidos[ganador] << endl;
-        cout << "Partido con menos votos: " << partidos[partido_menor_votos] << endl;
+        cout << "\nResultados Finales de los partidos politicos:\n";
+        cout << "-----------------------------------------------------------\n";
+        cout << "Partido politico ganador: " << partidos[ganador] << endl;
+        cout << "Partido politico con menos votos: " << partidos[partido_menor_votos] << endl;
 
         // Preguntar si desea realizar otra elección
         char otra_eleccion;
