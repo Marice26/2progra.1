@@ -1,0 +1,27 @@
+# depslib dependency file v1.0
+1742938902 source:c:\users\seles\onedrive\documentos\2progra\ejercicio 3.13\src\factura.cpp
+	"Factura.h"
+	<iostream>
+	<iomanip>
+
+1742939268 c:\users\seles\onedrive\documentos\2progra\ejercicio 3.13\include\factura.h
+	<string>
+
+1742939765 source:c:\users\seles\onedrive\documentos\2progra\ejercicio 3.13\main.cpp
+	<iostream>
+	<iomanip>
+	"Factura.h"
+
+1742939765 source:c:\users\seles\onedrive\documentos\2progra\2progra\codigos de los ejercicios de el capitulo 3\ejercicio 3.13\main.cpp
+	<iostream>
+	<iomanip>
+	"Factura.h"
+
+1742939268 c:\users\seles\onedrive\documentos\2progra\2progra\codigos de los ejercicios de el capitulo 3\ejercicio 3.13\include\factura.h
+	<string>
+
+1742938902 source:c:\users\seles\onedrive\documentos\2progra\2progra\codigos de los ejercicios de el capitulo 3\ejercicio 3.13\src\factura.cpp
+	"Factura.h"
+	<iostream>
+	<iomanip>
+

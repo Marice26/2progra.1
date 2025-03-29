@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1743210618 source:c:\users\seles\onedrive\documentos\2progra\ejercicio 6.35\main.cpp
+	<iostream>
+	<cstdlib>
+	<ctime>
+
