@@ -1,0 +1,22 @@
+# depslib dependency file v1.0
+1743290813 source:c:\users\seles\onedrive\documentos\2progra\la utilización de bibliotecas (librerias e implementación)\main.cpp
+	<iostream>
+	"Eleccion.h"
+
+1743290650 c:\users\seles\onedrive\documentos\2progra\la utilización de bibliotecas (librerias e implementación)\include\eleccion.h
+	"Partido.h"
+	<vector>
+
+1743290650 c:\users\seles\onedrive\documentos\2progra\la utilización de bibliotecas (librerias e implementación)\include\partido.h
+	<string>
+
+1743290650 source:c:\users\seles\onedrive\documentos\2progra\la utilización de bibliotecas (librerias e implementación)\src\partido.cpp
+	"partido.h"
+
+1743291013 source:c:\users\seles\onedrive\documentos\2progra\la utilización de bibliotecas (librerias e implementación)\src\eleccion.cpp
+	"Eleccion.h"
+	<iostream>
+	<cstdlib>
+	<ctime>
+	<iomanip>
+
