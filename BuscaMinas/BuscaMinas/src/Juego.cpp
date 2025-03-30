@@ -5,137 +5,145 @@
 
 using namespace std;
 
+// Funci贸n que genera un n煤mero aleatorio entre el rango m铆nimo y m谩ximo
 int Juego::aleatorio_en_rango(int minimo, int maximo) {
     return minimo + rand() / (RAND_MAX / (maximo - minimo + 1) + 1);
 }
 
+// Funci贸n que genera un n煤mero aleatorio dentro de las filas del tablero
 int Juego::filaAleatoria() {
     return this->aleatorio_en_rango(0, this->tablero.getAlturaTablero() - 1);
 }
 
+// Funci贸n que genera un n煤mero aleatorio dentro de las columnas del tablero
 int Juego::columnaAleatoria() {
     return this->aleatorio_en_rango(0, this->tablero.getAnchoTablero() - 1);
 }
 
+// Constructor de la clase Juego que inicializa el tablero, la cantidad de minas, y las vidas
 Juego::Juego(Tablero tablero, int cantidadMinas, int vidasIniciales)
 {
-    this->tablero = tablero;
-    this->cantidadMinas = cantidadMinas;
-    this->vidas = vidasIniciales;
-    this->colocarMinasAleatoriamente();
-    this->tiempoInicio = std::chrono::steady::now();
-    this->victorias = 0;
-    this->derrotas = 0;
+    this->tablero = tablero;  // Asigna el tablero al objeto juego
+    this->cantidadMinas = cantidadMinas;  // Asigna la cantidad de minas
+    this->vidas = vidasIniciales;  // Asigna las vidas iniciales
+    this->colocarMinasAleatoriamente();  // Coloca las minas aleatoriamente en el tablero
+    this->tiempoInicio = std::chrono::steady::now();  // Inicia el cron贸metro
+    this->victorias = 0;  // Inicializa el contador de victorias
+    this->derrotas = 0;  // Inicializa el contador de derrotas
 }
 
+// Funci贸n que coloca las minas de forma aleatoria en el tablero
 void Juego::colocarMinasAleatoriamente() {
     int x, y, minasColocadas = 0;
 
+    // Coloca las minas aleatoriamente en el tablero hasta que se haya alcanzado la cantidad deseada
     while (minasColocadas < this->cantidadMinas) {
-        x = this->columnaAleatoria();
-        y = this->filaAleatoria();
-        if (this->tablero.colocarMina(x, y)) {
-            minasColocadas++;
+        x = this->columnaAleatoria();  // Genera una columna aleatoria
+        y = this->filaAleatoria();  // Genera una fila aleatoria
+        if (this->tablero.colocarMina(x, y)) {  // Si la mina se coloca correctamente
+            minasColocadas++;  // Aumenta el contador de minas colocadas
         }
     }
 }
 
+// Solicita al usuario que ingrese una fila donde desea jugar (ajustado para 铆ndice 0)
 int Juego::solicitarFilaUsuario() {
     int fila = 0;
     cout << "Ingresa la FILA en la que desea jugar: ";
     cin >> fila;
-    return fila - 1;  // Ajusta para que sea 0-indexado
+    return fila - 1;  // Ajusta para que el valor sea 0-indexado
 }
 
+// Solicita al usuario que ingrese una columna donde desea jugar (ajustado para 铆ndice 0)
 int Juego::solicitarColumnaUsuario() {
     int columna = 0;
     cout << "Ingresa la COLUMNA en la que desea jugar: ";
     cin >> columna;
-    return columna - 1;  // Ajusta para que sea 0-indexado
+    return columna - 1;  // Ajusta para que el valor sea 0-indexado
 }
 
+// Verifica si el jugador ha ganado el juego, basado en la cantidad de celdas sin minas y no descubiertas
 bool Juego::jugadorGana() {
     int conteo = this->tablero.contarCeldasSinMinasYSinDescubrir();
-    return conteo == 0;  // Retorna verdadero si el jugador ha ganado
+    return conteo == 0;  // El jugador gana si no hay m谩s celdas sin minas y sin descubrir
 }
 
+// Muestra el marcador con el total de victorias y derrotas
 void Juego::mostrarMarcador() {
     cout << "Total de victorias: " << victorias << endl;
     cout << "Total de derrotas: " << derrotas << endl;
 }
 
+// Funci贸n principal que maneja la l贸gica del juego
 void Juego::iniciar() {
     int fila, columna;
+
     while (true) {
-        this->tablero.imprimir();
-        cout << "Vidas Restantes: " << this->vidas << endl; // mostrar cantidad de vidas
-        this->mostrarCronometro(); // Mostrar el cron髆etro
-        fila = this->solicitarFilaUsuario();
-        columna = this->solicitarColumnaUsuario();
-        bool respuestaAUsuario = this->tablero.descubrirMina(columna, fila);
+        this->tablero.imprimir();  // Muestra el tablero en cada iteraci贸n
+        cout << "Vidas Restantes: " << this->vidas << endl;  // Muestra la cantidad de vidas restantes
+        this->mostrarCronometro();  // Muestra el cron贸metro
 
-        if (!respuestaAUsuario)
-        {
-            count << "has descubiero una mina\n";
-            this->perderVida(); // vidas
+        fila = this->solicitarFilaUsuario();  // Solicita la fila al usuario
+        columna = this->solicitarColumnaUsuario();  // Solicita la columna al usuario
 
-            if(this->vidas == 0) // vidas
-            {
-                count<< "perdiste todas tus vidas, fin del juego" << endl;
+        bool respuestaAUsuario = this->tablero.descubrirMina(columna, fila);  // Descubre la mina en la posici贸n seleccionada
+
+        // Si el jugador descubre una mina
+        if (!respuestaAUsuario) {
+            cout << "隆Has descubierto una mina!\n";
+            this->perderVida();  // Pierde una vida
+
+            // Si el jugador pierde todas sus vidas, termina el juego
+            if (this->vidas == 0) {
+                cout << "Perdiste todas tus vidas, fin del juego\n";
                 break;
             }
         }
-        cout << "has descubierto una mina \n";
-this->perderVida(); // vidas
-if (this->vidas == 0) // vidas
-{
-cout << "perdiste todas tus vidas, fin del juego" << endl;
-break;
-}
-}
 
+        // Si el jugador gana, se muestra el mensaje de victoria
         if (this->jugadorGana()) {
-            cout << "Ganaste el Juego\n";
-            this->victorias++;  // Incrementa el contador de victorias
-            this->tablero.setModoDesarrollador(true);
-            this->tablero.imprimir();
+            cout << "隆Ganaste el Juego!\n";
+            this->victorias++;  // Aumenta el contador de victorias
+            this->tablero.setModoDesarrollador(true);  // Activa el modo desarrollador en el tablero
+            this->tablero.imprimir();  // Muestra el tablero final
             break;
         }
     }
     mostrarMarcador();  // Muestra el marcador al final del juego
 }
-void Juego::mostrarCronometro()
-{
+
+// Funci贸n que muestra el tiempo transcurrido desde el inicio del juego en formato "minutos y segundos"
+void Juego::mostrarCronometro() {
     // Calculamos el tiempo transcurrido en segundos
     auto tiempoActual = std::chrono::steady_clock::now();
     std::chrono::duration<float> duracion = tiempoActual - tiempoInicio;
     int segundos = static_cast<int>(duracion.count());
 
-    // Variable est醫ica para evitar imprimir el mismo tiempo varias veces por segundo
+    // Variable est谩tica para evitar imprimir el mismo tiempo varias veces por segundo
     static int segundosAnteriores = -1;
 
     // Si el tiempo ha cambiado (es decir, ha pasado al menos 1 segundo)
-    if (segundos != segundosAnteriores)
-    {
-        segundosAnteriores = segundos; // Actualizamos el valor de los segundos
-        int minutos = segundos / 60;
-        segundos = segundos % 60;
+    if (segundos != segundosAnteriores) {
+        segundosAnteriores = segundos;  // Actualizamos el valor de los segundos
+        int minutos = segundos / 60;  // Calculamos los minutos
+        segundos = segundos % 60;  // Calculamos los segundos restantes
         cout << "Tiempo Transcurrido: " << minutos << " minutos y " << segundos << " segundos" << endl;
     }
 }
 
-void Juego::perderVida()
-{
-    this->vidas--;
+// Funci贸n que maneja la p茅rdida de una vida por parte del jugador
+void Juego::perderVida() {
+    this->vidas--;  // Disminuye la cantidad de vidas
 
-    if (this->vidas > 0)
-    {
-        cout << "as perdido una vida! Vidas restantes: " << this->vidas << endl;
+    // Si a煤n quedan vidas, muestra un mensaje de cu谩ntas quedan
+    if (this->vidas > 0) {
+        cout << "隆Has perdido una vida! Vidas restantes: " << this->vidas << endl;
     }
-    else
-    {
-        cout << "as perdido todas tus vidas! Mostrando el tablero en modo desarrollador.\n";
-        this->tablero.setModoDesarrollador(true);
-        this->tablero.imprimir();
+    else {
+        // Si el jugador se queda sin vidas, muestra el tablero en modo desarrollador
+        cout << "隆Has perdido todas tus vidas! Mostrando el tablero en modo desarrollador.\n";
+        this->tablero.setModoDesarrollador(true);  // Activa el modo desarrollador
+        this->tablero.imprimir();  // Muestra el tablero en modo desarrollador
     }
 }
+
