@@ -1,0 +1,35 @@
+# depslib dependency file v1.0
+1743563521 source:c:\users\seles\onedrive\documentos\2progra\busca m i n a s.intento 2\main.cpp
+	"Juego.h"
+	<iostream>
+
+1743563521 c:\users\seles\onedrive\documentos\2progra\busca m i n a s.intento 2\include\juego.h
+	"Tablero.h"
+	"Configuracion.h"
+	<chrono>
+
+1743563521 source:c:\users\seles\onedrive\documentos\2progra\busca m i n a s.intento 2\src\juego.cpp
+	"Juego.h"
+	<iostream>
+	<chrono>
+
+1743563521 source:c:\users\seles\onedrive\documentos\2progra\busca m i n a s.intento 2\src\configuracion.cpp
+	"Configuracion.h"
+
+1743563521 c:\users\seles\onedrive\documentos\2progra\busca m i n a s.intento 2\include\configuracion.h
+
+1743563521 source:c:\users\seles\onedrive\documentos\2progra\busca m i n a s.intento 2\src\celda.cpp
+	"Celda.h"
+
+1743563521 c:\users\seles\onedrive\documentos\2progra\busca m i n a s.intento 2\include\celda.h
+
+1743563701 c:\users\seles\onedrive\documentos\2progra\busca m i n a s.intento 2\include\tablero.h
+	<vector>
+	<iostream>
+	"Celda.h"
+
+1743563520 source:c:\users\seles\onedrive\documentos\2progra\busca m i n a s.intento 2\src\tablero.cpp
+	"Tablero.h"
+	<cstdlib>
+	<ctime>
+
